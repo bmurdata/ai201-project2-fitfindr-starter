@@ -74,28 +74,30 @@ Your README submission must document each tool's name, inputs, and return value.
      Walk through this carefully — it's how graders follow your agent's reasoning without a live demo.
      Use a specific example — do not leave this as a template. -->
 
-**User query:**
+**User query:I'm looking for a vintage graphic tee under $30. I mostly wear baggy jeans and chunky sneakers. What's out there and how would I style it?**
 
-**Step 1 — Tool called:**
-- Tool:
-- Input:
-- Why this tool:
-- Output:
+**Step 1 — Tool called:Search listing**
+- Tool:search_listings
+- Input: - `description` (str): Keywords of the item the customer wants. Can come from title, description, or style_tags fields.
+- `size` (str): Keyword of the size the customer wants. Can come from size field.
+- `max_price` (float): Keywords of the price the customer wants. Can come from price field.
+- Why this tool: Needs to see if a new item matches the user desires before suggesting an outfit.
+- Output: new item as a dictionary
 
 **Step 2 — Tool called:**
-- Tool:
-- Input:
-- Why this tool:
-- Output:
+- Tool: suggest_outfit
+- Input: warddrobe dict and new_item dict
+- Why this tool: It needs to pair the new item with existing items.
+- Output: string describing the outfit and how to use the new item
 
 **Step 3 — Tool called:**
-- Tool:
-- Input:
-- Why this tool:
-- Output:
+- Tool: create_fit_card
+- Input: outfit string and new item dict
+- Why this tool: creates a social media post to put online
+- Output: string describing the new outfit and how to use it
 
 **Final output to user:**
-
+A string with a social media post about the outfit along with some tips on how to use the new item and details about the new item.
 ---
 
 ## Error Handling and Fail Points
@@ -105,9 +107,9 @@ Your README submission must document each tool's name, inputs, and return value.
 
 | Tool | Failure mode | Agent response |
 |------|-------------|----------------|
-| `search_listings` | | |
-| `suggest_outfit` | | |
-| `create_fit_card` | | |
+| `search_listings` | No results match the query | I could not find the item desired. Please try changing the query and trying again. This will end the interaction|
+| `suggest_outfit` |  Wardrobe is empty | Return a string of generic styling advice|
+| `create_fit_card` |  Outfit input is missing or incomplete |Return a statement that an error occured, and give them the option to try again.|
 
 ---
 
@@ -116,9 +118,9 @@ Your README submission must document each tool's name, inputs, and return value.
 <!-- Answer both questions with at least 2–3 sentences each. -->
 
 **One way planning.md helped during implementation:**
-
+It helped me break down the problem into manageable steps. I was able to prompt Claude better and have it focus on one tool at a time before moving to the next.
 **One divergence from your spec, and why:**
-
+I had to add an error message and handling for 
 ---
 
 ## Where to Start
